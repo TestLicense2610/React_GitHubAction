@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Đã nâng cấp lên bản 20 theo lỗi hệ thống báo
+          node-version: '20'
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -36,4 +36,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          # Thử nghiệm với .next nếu dự án v0 không cấu hình static export
+          path: ./.next
