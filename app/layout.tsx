@@ -1,3 +1,4 @@
+// layout.tsx
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
@@ -35,15 +36,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Lấy giá trị từ biến môi trường để vượt qua vòng quét của GitGuardian
+  const katalonCode = process.env.NEXT_PUBLIC_KATALON_CODE;
+
   return (
     <html lang="en">
       <head>
-        <script
-          defer
-          async
-          client-code="KA-1572382-03"
-          src="https://static.katalon.com/libs/traffic-agent/v1/traffic-agent.min.js"
-        />
+        {/* Chỉ render script nếu biến môi trường tồn tại để tránh lỗi undefined */}
+        {katalonCode && (
+          <script
+            defer
+            async
+            client-code={katalonCode}
+            src="https://static.katalon.com/libs/traffic-agent/v1/traffic-agent.min.js"
+          />
+        )}
       </head>
       <body className="font-sans antialiased">
         <Navigation />
