@@ -14,21 +14,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8 # Hoặc phiên bản bạn đang dùng
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'pnpm' # Đổi sang cache pnpm
 
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
 
       - name: Build App
-        # Đây là bước quan trọng nhất để truyền biến từ GitHub Secret vào Next.js
-        run: npm run build
+        run: pnpm run build
         env:
           NEXT_PUBLIC_KATALON_CODE: ${{ secrets.KATALON_CLIENT_CODE }}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
