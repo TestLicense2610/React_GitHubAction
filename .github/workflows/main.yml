@@ -27,6 +27,6 @@ jobs:
           NEXT_PUBLIC_KATALON_CODE: ${{ secrets.KATALON_CLIENT_CODE }}
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
